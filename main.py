@@ -7,7 +7,14 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Define parameters.')
 
+parser.add_argument('--n_epoch', type=int, default=10)
+parser.add_argument('--n_batch', type=int, default=64)
+parser.add_argument('--n_img_row', type=int, default=32)
+parser.add_argument('--n_img_col', type=int, default=32)
+parser.add_argument('--n_img_channels', type=int, default=3)
+parser.add_argument('--n_classes', type=int, default=10)
 
+args = parser.parse_args()
 
 
 class CNNEnv:
@@ -33,12 +40,12 @@ class CNNEnv:
         self.epochs_completed = 0
 
         # Basic info
-        self.batch_num = 64
-        self.num_epoch = 2
-        self.img_row = 32
-        self.img_col = 32
-        self.img_channels = 3
-        self.nb_classes = 10
+        self.batch_num = args.n_batch
+        self.num_epoch = args.n_epoch
+        self.img_row = args.n_img_row
+        self.img_col = args.n_img_col
+        self.img_channels = args.n_img_channels
+        self.nb_classes = args.n_classes
         self.num_iter = self.x_train.shape[0] / self.batch_num  # per epoch
 
     def next_batch(self, batch_size):
