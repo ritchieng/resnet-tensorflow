@@ -1,7 +1,7 @@
 # Residual Networks in TensorFlow
 
 ## Residual Network in TensorFlow
-This entire code is implemented in pure TensorFlow. It's a simpler version as the original one has issues with iterations and epochs.
+This entire code is implemented in pure TensorFlow.  It's a simpler version to run but it has the full capabilities of the original one. The original version was complicated without proper logging.
 
 ## Instructions
 - Running Training
@@ -10,7 +10,12 @@ This entire code is implemented in pure TensorFlow. It's a simpler version as th
     - `tensorboard --logdir=train_log`
 
 ## Credits
-This was obtained from the [official repository](https://github.com/tensorflow/models/tree/master/resnet) by TensorFlow.
+- The original was obtained from the [official repository](https://github.com/tensorflow/models/tree/master/resnet) by TensorFlow.
+- The paper on [Residual Networks](https://arxiv.org/abs/1512.03385) on arXiv.org
+
+## Dependencies
+- To simplify the code, I read the CIFAR dataset using TensorLayer.
+    - Simply run `sudo pip install tensorlayer` and you are good to go! 
 
 ## License
 MIT
