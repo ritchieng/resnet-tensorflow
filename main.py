@@ -3,6 +3,11 @@ import tensorlayer as tl
 from tensorlayer.layers import set_keep
 import numpy as np
 import resnet_model
+import argparse
+
+parser = argparse.ArgumentParser(description='Define parameters.')
+
+
 
 
 class CNNEnv:
@@ -34,7 +39,7 @@ class CNNEnv:
         self.img_col = 32
         self.img_channels = 3
         self.nb_classes = 10
-        self.num_iter = (self.x_train.shape[0] / self.batch_num)*self.num_epoch
+        self.num_iter = self.x_train.shape[0] / self.batch_num  # per epoch
 
     def next_batch(self, batch_size):
         """Return the next `batch_size` examples from this data set."""
@@ -75,18 +80,42 @@ class CNNEnv:
 
         sess.run(tf.global_variables_initializer())
         print('Done initializing variables')
-        print('Running iterations...')
-        for i in range(self.num_iter):
-            batch = self.next_batch(self.batch_num)
-            feed_dict = {img: batch[0], labels: batch[1]}
-            _, l, ac, summary = sess.run([model.train_op, model.cost, model.acc, merged], feed_dict=feed_dict)
-            train_writer.add_summary(summary, i)
-            print('step', i+1)
-            print('loss', l)
-            print('acc', ac)
+        print('Running model...')
 
-        print('Completed training.')
+        for j in range(self.num_epoch):
+            print('Epoch {}'.format(j+1))
 
+            for i in range(self.num_iter):
+                batch = self.next_batch(self.batch_num)
+                feed_dict = {img: batch[0], labels: batch[1]}
+                _, l, ac, summary = sess.run([model.train_op, model.cost, model.acc, merged], feed_dict=feed_dict)
+                train_writer.add_summary(summary, i)
+                if i % 200 == 0:
+                    print('step', i+1)
+                    print('Training loss', l)
+                    print('Training accuracy', ac)
+
+            print('Running evaluation...')
+
+            test_loss, test_acc, n_batch = 0, 0, 0
+            for batch in tl.iterate.minibatches(inputs=self.x_test,
+                                                targets=self.y_test,
+                                                batch_size=self.batch_num,
+                                                shuffle=False):
+                feed_dict_eval = {img: batch[0], labels: batch[1]}
+
+                loss, ac = sess.run([model.cost, model.acc], feed_dict=feed_dict_eval)
+                test_loss += loss
+                test_acc += ac
+                n_batch += 1
+
+            tot_test_loss = test_loss / n_batch
+            tot_test_acc = test_acc / n_batch
+
+            print('   Test loss: {}'.format(tot_test_loss))
+            print('   Test accuracy: {}'.format(tot_test_acc))
+
+        print('Completed training and evaluation.')
 
 run = CNNEnv()
 
