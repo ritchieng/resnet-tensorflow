@@ -8,12 +8,20 @@ This entire code is implemented in pure TensorFlow.  It's a simpler version to r
     - `python main.py`
         - If you want to modify any parameters, you can use for example `python main.py --n_epoch==10`
             - The default runs on CIFAR-10 dataset and this configuration is made for that.
-            - `n_epoch`: number of epochs, default `10`
-            - `n_batch`: batch size, default `64`
-            - `n_img_row`: dimension of image (row), default `32`
-            - `n_img_col`: dimension of image (col), default `32`
-            - `n_img_channels`: number of channels, default `3`
-            - `n_classes`: number of classes, default `10`
+            - `n_epoch`: number of epochs
+                - Default `10`
+            - `n_batch`: batch size
+                - Default `64`
+            - `n_img_row`: dimension of image (row)
+                - Default `32`
+            - `n_img_col`: dimension of image (col)
+                - Default `32`
+            - `n_img_channels`: number of channels
+                - Default `3`
+            - `n_classes`: number of classes
+                - Default `10`
+            - `lr`: learning rate (momentum optimizer)
+                - Default `0.1`
         
 - Running TensorBoard
     - Training logs
