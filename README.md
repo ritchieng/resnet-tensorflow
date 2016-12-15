@@ -38,9 +38,10 @@ This entire code is implemented in pure TensorFlow.  It's a simpler version to r
 - The paper on [Residual Networks](https://arxiv.org/abs/1512.03385) on arXiv.org.
 
 ## Dependencies
-- To simplify the code, I read the CIFAR dataset using TensorLayer.
-    - Simply run `sudo pip install tensorlayer` and you are good to go! 
+- To simplify the code, I read the CIFAR dataset using [TensorLayer](https://github.com/zsdonghao/tensorlayer).
+    - Simply run `sudo pip install tensorlayer` and you are good to go.
 - TensorFlow v0.12
+    - If you would like to run this code in a few minutes on Amazon AWS, just use the open-source AMI [TFAMI.v3](https://github.com/ritchieng/tensorflow-aws-ami).
 
 ## License
 MIT
