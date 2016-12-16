@@ -14,6 +14,7 @@ parser.add_argument('--n_img_col', type=int, default=32)
 parser.add_argument('--n_img_channels', type=int, default=3)
 parser.add_argument('--n_classes', type=int, default=10)
 parser.add_argument('--lr', type=float, default=0.1)
+parser.add_argument('--n_resid_units', type=int, default=5)
 
 args = parser.parse_args()
 
@@ -131,7 +132,7 @@ hps = resnet_model.HParams(batch_size=run.batch_num,
                            num_classes=run.nb_classes,
                            min_lrn_rate=0.0001,
                            lrn_rate=args.lr,
-                           num_residual_units=5,
+                           num_residual_units=args.n_resid_units,
                            use_bottleneck=False,
                            weight_decay_rate=0.0002,
                            relu_leakiness=0.1,

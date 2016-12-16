@@ -22,6 +22,8 @@ This entire code is implemented in pure TensorFlow.  It's a simpler version to r
                 - Default `10`
             - `lr`: learning rate (momentum optimizer)
                 - Default `0.1`
+            - `n_resid_units`: number of residual units
+                - Default `5
         
 - Running TensorBoard
     - Training logs
