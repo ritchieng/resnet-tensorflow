@@ -24,6 +24,11 @@ This entire code is implemented in pure TensorFlow and I have made it simple to 
                 - Default `0.1`
             - `n_resid_units`: number of residual units
                 - Default `5`
+            - `lr_schedule`: number of epoch for the learning rate to decrease by `lr_factor`
+                - Default `60`
+                - This multiplies the LR every 60 epochs by `lr_factor`.
+            - `lr_factor`: the factor for reducing LR
+                - Default `0.1`.
         
 - Running TensorBoard
     - Training logs

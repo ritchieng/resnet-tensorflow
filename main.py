@@ -15,6 +15,8 @@ parser.add_argument('--n_img_channels', type=int, default=3)
 parser.add_argument('--n_classes', type=int, default=10)
 parser.add_argument('--lr', type=float, default=0.1)
 parser.add_argument('--n_resid_units', type=int, default=5)
+parser.add_argument('--lr_schedule', type=int, default=60)
+parser.add_argument('--lr_factor', type=float, default=0.1)
 
 args = parser.parse_args()
 
@@ -91,18 +93,30 @@ class CNNEnv:
         print('Done initializing variables')
         print('Running model...')
 
+        # Set default learning rate for scheduling
+        lr = args.lr
+
         for j in range(self.num_epoch):
             print('Epoch {}'.format(j+1))
 
+            # Decrease learning rate every args.lr_schedule epoch
+            # By args.lr_factor
+            if (j + 1) % args.lr_schedule == 0:
+                lr *= args.lr_factor
+
             for i in range(self.num_iter):
                 batch = self.next_batch(self.batch_num)
-                feed_dict = {img: batch[0], labels: batch[1]}
-                _, l, ac, summary = sess.run([model.train_op, model.cost, model.acc, merged], feed_dict=feed_dict)
+                feed_dict = {img: batch[0],
+                             labels: batch[1],
+                             model.lrn_rate: lr}
+                _, l, ac, summary, lr = sess.run([model.train_op, model.cost, model.acc, merged, model.lrn_rate], feed_dict=feed_dict)
                 train_writer.add_summary(summary, i)
+                #
                 if i % 200 == 0:
                     print('step', i+1)
                     print('Training loss', l)
                     print('Training accuracy', ac)
+                    print('Learning rate', lr)
 
             print('Running evaluation...')
 
