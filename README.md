@@ -1,10 +1,10 @@
 # Residual Networks in TensorFlow
 
 ## Residual Network in TensorFlow
-This entire code is implemented in pure TensorFlow.  It's a simpler version to run but it has the full capabilities of the original one. The original version was complicated without some essential features like stopping the training and logging.
+This entire code is implemented in pure TensorFlow and I have made it simple to run with different settings.
 
 ## Simple Instructions
-- Running Training
+- Running Training and Evaluation
     - `python main.py`
         - If you want to modify any parameters, you can use for example `python main.py --n_epoch==10`
             - The default runs on CIFAR-10 dataset and this configuration is made for that.
@@ -36,7 +36,6 @@ This entire code is implemented in pure TensorFlow.  It's a simpler version to r
 
 ## Credits
 - The original model was obtained from the [official repository](https://github.com/tensorflow/models/tree/master/resnet) by TensorFlow.
-    - You can access this original file with the file named `resnet_main.py`. 
 - The paper on [Residual Networks](https://arxiv.org/abs/1512.03385) on arXiv.org.
 
 ## Dependencies
